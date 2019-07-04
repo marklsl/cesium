@@ -1,0 +1,29 @@
+.compass_div {
+    width: 4.6875vw;
+    height: 9.28793vh;
+    background: url(img/zhibei_bg.png) center no-repeat;
+    background-size: auto;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.north {
+    width: 0.41667vw;
+    height: 1.03199vh;
+    margin: 0 auto;
+    padding-top: 0.82559vh;
+    background: url("img/N.png") center no-repeat;
+    background-size: auto;
+}
+
+.pointer {
+    width: 2.60417vw;
+    height: 5.15996vh;
+    background: url('img/zhibeizhen.png') center no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 2.06398vh;
+    left: 1.04167vw;
+    transform: rotate(0deg);
+}
