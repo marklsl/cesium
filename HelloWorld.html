@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<!-- Use correct character set. -->
+		<meta charset="utf-8">
+		<!-- Tell IE to use the latest, best version. -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>Hello World!</title>
+		<link href="./service/tool/tool.css" rel="stylesheet" type="text/css" />
+		<script src="service/util/require/require.js"></script>
+		<script src="Build/Cesium/Cesium.js"></script>
+		<script src="service/util/viewerCesiumNavigationMixin.js"></script>
+		<script src="jquery.js"></script>
+		<script src="service/util/utilFunction.js"></script>
+		<script src="service/tool/measurement.js"></script>
+		<script src="service/tool/northPointer.js"></script>
+		<script src="service/tool/zoomControl.js"></script>
+		<script src="service/business/loadWFS.js"></script>
+		<script src="service/business/layerControl.js"></script>
+		<style>
+			@import url(Build/Cesium/Widgets/widgets.css);
+			@import url(service/index.css);
+		</style>
+	</head>
+
+	<body>
+		<div id="cesiumContainer"></div>
+
+		<div class="tools">
+			<div class="goup">放大</div>
+			<div class="godown">缩小</div>
+			<div class="gobackcenter">返回中心点</div>
+			<div class="measurement_line">测线</div>
+			<div class="measurement_perimeter">测周长</div>
+			<div class="measurement_area">测面</div>
+		</div>
+		<div class="layer_control_box">
+			<div class="addOneYs">添加一个要素</div>
+			<div class="removeOneYs">删除一个要素</div>
+			<div class="addAllYs">添加所有要素</div>
+			<div class="removeAllYs">清空所有要素</div>
+		</div>
+<!--		<div class="compass_div">-->
+<!--			<p class="north"></p>-->
+<!--			<span class="pointer"></span>-->
+<!--		</div>-->
+		<script>
+			var viewer = new Cesium.Viewer('cesiumContainer', {});
+			//工具插件
+			viewer.extend(Cesium.viewerCesiumNavigationMixin, {});
+			viewer.scene.debugShowFramesPerSecond = true;
+
+			window.util=new util(viewer);
+			//指北针
+			let pointerFun=new pointer(viewer);
+			pointerFun.initFun();
+			//加载图层服务
+			let loadFun=new loadWFSLayer(viewer);
+			loadFun.loadYs();
+			//图层控制
+			let zoomC=new zoomControl(viewer);
+			//测量初始化
+			let measurementFun=new measurement(viewer);
+			//测量初始化
+			let eleControl=new layerControl(viewer);
+			eleControl.iniClick();
+
+			//工具栏点击
+			$(".tools").find("div").unbind("click").click(function(){
+				measurementFun.clear();//测量的点击取消
+				if($(this).attr("class")=="goup"){
+					zoomC.goup();
+				}else if($(this).attr("class")=="godown"){
+					zoomC.godown();
+				}else if($(this).attr("class")=="gobackcenter"){
+					let lng=116.709549;
+					let lat=39.730733;
+					let height=135970.38753016366;
+					gobackcenter(lng,lat,height);
+				}else if($(this).attr("class")=="measurement_line"){
+					measurementFun.measureLineSpace();
+				}else if($(this).attr("class")=="measurement_perimeter"){
+					measurementFun.measurePerimeterSpace();
+				}else if($(this).attr("class")=="measurement_area"){
+					measurementFun.measureAreaSpace();
+				}
+			})
+			//返回原位
+			var gobackcenter=function(lng,lat,height){
+				window.util.gobackprojectcenter(lng,lat,height)
+			}
+
+		</script>
+	</body>
+
+</html>
