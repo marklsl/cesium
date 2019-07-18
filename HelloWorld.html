@@ -36,6 +36,7 @@
 			<div class="measurement_line">测线</div>
 			<div class="measurement_perimeter">测周长</div>
 			<div class="measurement_area">测面</div>
+			<div class="3d_model">加载三维模型</div>
 		</div>
 		<div class="layer_control_box">
 			<div class="addOneYs">添加一个要素</div>
@@ -48,6 +49,8 @@
 <!--			<span class="pointer"></span>-->
 <!--		</div>-->
 		<script>
+			//添加token
+			Cesium.Ion.defaultAccessToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4N2JjNWQzYy1lZjRkLTQyMjMtYTFiOC00ZTY3YjFkMTNkNTAiLCJpZCI6MTM1MTMsInNjb3BlcyI6WyJhc2wiLCJhc3IiLCJhc3ciLCJnYyJdLCJpYXQiOjE1NjM0MTQ1NzN9.f8aA89Sivxp2ZYYZZR0lMQ2VuTWlPciHt_AX0t1zlmY';
 			var viewer = new Cesium.Viewer('cesiumContainer', {});
 			//工具插件
 			viewer.extend(Cesium.viewerCesiumNavigationMixin, {});
